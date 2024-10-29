@@ -6,16 +6,16 @@ import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
-  selector: 'app-fridge',
-  templateUrl: './fridge.component.html',
+  selector: 'app-test',
+  templateUrl: './test.component.html',
   standalone: true,
   imports: [
     FormsModule,
     NgSelectModule
   ],
-  styleUrls: ['./fridge.component.css']
+  styleUrls: ['./test.component.css']
 })
-export class FridgeComponent implements OnInit {
+export class TestComponent implements OnInit {
   newProduct: string = '';
   fridge: string[] = [];
   suggestedRecipes: any[] = [];
