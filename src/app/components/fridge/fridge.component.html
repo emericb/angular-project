@@ -1,4 +1,4 @@
-"<div class="fridge-container">
+<div class="fridge-container">
   <h1>FreeGo</h1>
   <div class="fridge">
     <div class="door">
@@ -6,7 +6,15 @@
     </div>
     <div class="content">
       <ul class="ingredients">
-        <li *ngFor="let product of filteredProducts()">{{ product.name }} x{{ product.quantity }}</li>
+        <li *ngFor="let product of filteredProducts()">
+          <div class="product-container">
+            <span>{{ product.name }} x{{ product.quantity }}</span>
+            <button (click)="decrementQuantity(product.name)" class="remove-button">-</button>
+          </div>
+        </li>
+        <ng-container *ngIf="filteredProducts().length === 0">
+          <div class="empty-fridge-message">Aucun aliment dans le frigo.</div>
+        </ng-container>
       </ul>
     </div>
   </div>

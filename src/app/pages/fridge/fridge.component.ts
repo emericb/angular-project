@@ -6,7 +6,7 @@ import { Product } from '../../model/product.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-fridge',
+  selector: 'app-fridg',
   templateUrl: './fridge.component.html',
   standalone: true,
   imports: [
