@@ -1,0 +1,17 @@
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4">Recipe Details</h2>
+  @if (recipe) {
+    <div>
+      <p><strong>Recipe name:</strong> {{ recipe.recipeName }}</p>
+      @for (product of recipe.products; track product; let i = $index) {
+        <p><strong>Product name:</strong> {{ product.productName }}</p>
+        <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+      }
+      <p><strong>Servings:</strong> {{ recipe.desiredServings }}</p>
+      <p><strong>Calories per serving:</strong> {{ recipe.caloriesPerServing }}</p>
+      <p><strong>Allergens:</strong> {{ recipe.allergens }}</p>
+    </div>
+  } @else {
+    <p>No recipe selected.</p>
+  }
+</div>
