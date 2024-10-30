@@ -3,7 +3,7 @@ export interface Product {
   code: string;
   name: string;
   category: string;
-  quantity: number;
+  quantity?: number | null;
   energyKcal: number;
   allergens: string;
   labels: string;

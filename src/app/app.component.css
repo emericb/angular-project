@@ -16,11 +16,4 @@ app-fridge{
   display:flex;
   justify-content: center;
   align-items: center;
-
-}
-
-.content{
-  display:flex;
-  justify-content: center;
-  align-items: center;
 }

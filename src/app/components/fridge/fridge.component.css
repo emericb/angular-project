@@ -53,16 +53,19 @@ input[type="text"] {
 }
 
 .content {
-  width: calc(100% - 50px);
+  width: 100%; /* S'assurer que ça prend tout l'espace horizontal */
   height: 100%;
   padding: 10px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Pour empiler les éléments verticalement */
 }
 
 .ingredients {
-  list-style-type: none;
+  list-style-type: none; /* Supprime le style de liste */
   padding: 0;
   margin: 0;
+  flex-grow: 1; /* Permet de prendre tout l'espace restant */
 }
 
 .ingredients li {
@@ -70,6 +73,32 @@ input[type="text"] {
   margin: 5px 0;
   padding: 10px;
   border-radius: 5px;
-  text-align: center;
-  font-size: 1rem;
+  text-align: center; /* Optionnel, selon vos préférences */
+}
+
+.product-container {
+  display: flex; /* Utiliser flexbox pour l'alignement */
+  justify-content: space-between; /* Espacement entre le texte et le bouton */
+  align-items: center; /* Aligner verticalement au centre */
+}
+
+.empty-fridge-message {
+  text-align: center; /* Centre le texte */
+  font-size: 1.2rem; /* Taille de police optionnelle */
+  color: #666; /* Couleur optionnelle pour le texte */
+  margin-top: 20px; /* Espacement supérieur optionnel */
+}
+
+.remove-button {
+  margin-left: 10px; /* Espacement entre le texte et le bouton */
+  background-color: #ff6b6b; /* Couleur du bouton */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px; /* Espacement à l'intérieur du bouton */
+}
+
+.remove-button:hover {
+  background-color: #ff4c4c; /* Couleur au survol */
 }
