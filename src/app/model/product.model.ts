@@ -7,4 +7,5 @@ export interface Product {
   energyKcal: number;
   allergens: string;
   labels: string;
+  selected: boolean;
 }

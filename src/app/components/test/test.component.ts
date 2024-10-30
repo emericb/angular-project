@@ -1,68 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { FridgeService } from '../../service/fridge.service';
 import { ProductService } from '../../service/product.service';
-import { Product } from '../../model/product.model';
-import { FormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { Product} from '../../model/product.model';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
+  styleUrls: ['./test.component.css'],
   standalone: true,
-  imports: [
-    FormsModule,
-    NgSelectModule
-  ],
-  styleUrls: ['./test.component.css']
+  imports: [FormsModule, CommonModule]
 })
 export class TestComponent implements OnInit {
-  newProduct: string = '';
-  fridge: string[] = [];
-  suggestedRecipes: any[] = [];
-  products: Product[] = [];
+  products: Product[] = []; // La liste des produits sera remplie par la BDD
 
-  constructor(private fridgeService: FridgeService, private productService: ProductService) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    localStorage.clear();
-    this.loadFridge();
-    this.loadProducts();
+    this.fetchProducts();
   }
 
-  loadFridge(): void {
-    const storedFridge = localStorage.getItem('fridge');
-    this.fridge = storedFridge ? JSON.parse(storedFridge) : [];
-    this.fetchSuggestedRecipes();
+  fetchProducts(): void {
+    this.productService.getProducts().subscribe(
+      (data: Product[]) => {
+        // Ajout dynamique des propriétés 'selected' et 'quantity' à chaque produit
+        this.products = data.map(product => ({
+          ...product,      // Garde toutes les autres propriétés originales
+          selected: false, // Ajoute 'selected' temporairement
+          quantity: 1      // Ajoute 'quantity' temporairement
+        }));
+      },
+      error => {
+        console.error('Erreur lors de la récupération des produits', error);
+      }
+    );
   }
 
-  loadProducts(): void {
-    this.productService.getProducts().subscribe((data: Product[]) => {
-      this.products = data;
-    });
-  }
 
-  addProduct(): void {
-    if (this.newProduct.trim()) {
-      this.fridge.push(this.newProduct.trim());
-      localStorage.setItem('fridge', JSON.stringify(this.fridge));
-      this.products = this.products.filter(product => product.name !== this.newProduct);
-      this.newProduct = '';
-      this.fetchSuggestedRecipes();
-    }
-  }
+  // Méthode appelée lors de la soumission du formulaire
+  onSubmit(): void {
+    const selectedProducts = this.products
+      .filter(product => product.selected)
+      .map(product => ({ name: product.name, quantity: product.quantity }));
 
-  fetchSuggestedRecipes(): void {
-    this.fridgeService.getSuggestedRecipes(this.fridge)
-      .subscribe((recipes) => {
-        if (Array.isArray(recipes)) {
-          this.suggestedRecipes = recipes;
-        } else {
-          console.error('API response is not an array:', recipes);
-          this.suggestedRecipes = [];
-        }
-      }, (error) => {
-        console.error('Error fetching suggested recipes:', error);
-        this.suggestedRecipes = [];
-      });
+    console.log('Produits sélectionnés :', selectedProducts);
+    // Tu peux ici envoyer ces données vers un backend ou faire autre chose avec
   }
 }
