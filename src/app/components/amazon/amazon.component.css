@@ -1,0 +1,72 @@
+/* Styles pour le formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: #ffffff; /* Couleur de fond blanche */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+/* Titre */
+h2 {
+  margin-bottom: 10px;
+  text-align: center; /* Centrer le titre */
+  color: #007bff; /* Couleur du titre */
+}
+
+/* Liste des produits */
+.product-list {
+  display: flex;
+  flex-wrap: wrap; /* Permet de revenir à la ligne automatiquement */
+  gap: 10px; /* Espacement entre les produits */
+}
+
+/* Éléments de produit */
+.product-item {
+  display: flex;
+  justify-content: space-between; /* Alignement des éléments */
+  align-items: center; /* Centre verticalement les éléments */
+  padding: 10px;
+  border: 1px solid #dee2e6; /* Bordure gris clair */
+  border-radius: 5px; /* Coins arrondis */
+  background-color: #f8f9fa; /* Fond des éléments de produit */
+  transition: background-color 0.3s; /* Transition douce */
+  width: calc(33% - 10px); /* Largeur des box : 1/3 de la ligne, ajustée pour l'espacement */
+  box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur totale */
+}
+
+.product-item:hover {
+  background-color: #e9ecef; /* Fond au survol */
+}
+
+/* Style des labels */
+label {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Style des inputs */
+input[type="number"] {
+  width: 60px; /* Largeur fixe */
+  padding: 5px;
+  border: 1px solid #007bff; /* Bordure bleue */
+  border-radius: 5px;
+}
+
+/* Style du bouton */
+.submit-button {
+  padding: 10px;
+  background-color: #28a745; /* Couleur verte pour le bouton */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transition douce */
+}
+
+.submit-button:hover {
+  background-color: #218838; /* Couleur du bouton au survol */
+}

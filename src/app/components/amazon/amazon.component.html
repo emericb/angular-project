@@ -1,0 +1,21 @@
+<form (ngSubmit)="onSubmit(fridgeForm)" #fridgeForm="ngForm">
+  <h2>Liste de courses</h2>
+  <div class="product-list">
+    <div *ngFor="let product of products; let i = index" class="product-item">
+      <label>
+        <input type="checkbox" [(ngModel)]="product.selected" [name]="'selected' + i"/>
+        ‎ {{ product.name }}
+      </label>
+      <input
+        type="number"
+        [(ngModel)]="product.quantity"
+        [disabled]="!product.selected"
+        [name]="'quantity' + i"
+        min="1"
+        max="99"
+        placeholder="Qté"
+      />
+    </div>
+  </div>
+  <button type="submit" class="submit-button">Acheter</button>
+</form>

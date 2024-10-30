@@ -1,63 +1,67 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FridgeService } from '../../service/fridge.service';
 import { ProductService } from '../../service/product.service';
 import { Product } from '../../model/product.model';
-import {FormsModule, NgForm} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule]
+  imports: [
+    FormsModule
+  ],
+  styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
-  products: Product[] = []; // La liste des produits sera remplie par la BDD
+  fridge: string[] = [];
+  suggestedRecipes: any[] = [];
+  products: Product[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private fridgeService: FridgeService, private productService: ProductService, private router: Router) {
+  }
 
-  // Récupérer les produits à l'initialisation du composant
   ngOnInit(): void {
-    this.fetchProducts();
+    this.loadProducts();
+    this.loadFridge();
   }
 
-  // Méthode pour récupérer les produits depuis le service
-  fetchProducts(): void {
-    this.productService.getProducts().subscribe(
-      (data: Product[]) => {
-        // Ajout dynamique des propriétés 'selected' et 'quantity' à chaque produit
-        this.products = data.map(product => ({
-          ...product,      // Garde toutes les autres propriétés originales
-          selected: false, // Ajoute 'selected' temporairement
-          quantity: null   // Ajoute 'quantity' temporairement
-        }));
-      },
-      error => {
-        console.error('Erreur lors de la récupération des produits', error);
-      }
-    );
-  }
-
-  // Méthode appelée lors de la soumission du formulaire
-  onSubmit(form: NgForm): void {
-    const selectedProducts = this.products
-      .filter(product => product.selected)
-      .map(product => ({ name: product.name, quantity: product.quantity }));
-
-    console.log('Produits sélectionnés :', selectedProducts);
-
-    // Appel du service pour envoyer les produits sélectionnés au backend
-    this.productService.saveSelectedProducts(selectedProducts).subscribe(
-      (response) => {
-        // Succès : ici tu traites la réponse du backend
-        console.log('Réponse du backend :', response);
+  loadFridge(): void {
+    this.productService.getUpdatedProducts().subscribe((data: Product[]) => {
+        console.log(this.fridge);
+        this.fridge = data.map(product => product.name);
+        console.log(this.fridge);
+        this.fetchSuggestedRecipes();
       },
       (error) => {
-        // Gestion des erreurs
-        console.error('Erreur lors de l\'envoi des produits :', error);
-        alert('Une erreur est survenue lors de l\'ajout des produits.');
+        console.error('Erreur lors de la mise à jour des produits :', error);
       }
     );
-    form.resetForm();
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe((data: Product[]) => {
+      this.products = data;
+    });
+  }
+
+  fetchSuggestedRecipes(): void {
+    this.fridgeService.getSuggestedRecipes(this.fridge)
+      .subscribe((recipes) => {
+        if (Array.isArray(recipes)) {
+          this.suggestedRecipes = recipes;
+        } else {
+          console.error('API response is not an array:', recipes);
+          this.suggestedRecipes = [];
+        }
+      }, (error) => {
+        console.error('Error fetching suggested recipes:', error);
+        this.suggestedRecipes = [];
+      });
+  }
+
+  viewRecipeDetails(recipeId: number): void {
+    this.router.navigate(['/pages/recipeDetails', recipeId]);
   }
 }

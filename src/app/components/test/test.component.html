@@ -1,21 +1,12 @@
-<form (ngSubmit)="onSubmit(fridgeForm)" #fridgeForm="ngForm">
-  <h2>Liste de courses</h2>
-  <div class="product-list">
-    <div *ngFor="let product of products; let i = index" class="product-item">
-      <label>
-        <input type="checkbox" [(ngModel)]="product.selected" [name]="'selected' + i"/>
-        {{ product.name }}
-      </label>
-      <input
-        type="number"
-        [(ngModel)]="product.quantity"
-        [disabled]="!product.selected"
-        [name]="'quantity' + i"
-        min="1"
-        max="99"
-        placeholder="Qté"
-      />
-    </div>
-  </div>
-  <button type="submit" class="submit-button">Acheter</button>
-</form>
+<div class="p-4">
+  <h3 class="text-xl font-semibold mb-2">Suggested Recipes</h3>
+  <ul class="list-disc pl-5">
+    @for (recipe of suggestedRecipes; track recipe.id; let i = $index) {
+      <li [id]="'recipe'+i" class="mb-1">
+        {{ recipe.name }}
+        <button (click)="viewRecipeDetails(recipe.id)" class="ml-2 bg-green-500 text-white px-2 py-1 rounded">Details</button>
+      </li>
+    }
+  </ul>
+</div>
+
