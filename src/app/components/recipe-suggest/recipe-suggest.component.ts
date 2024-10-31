@@ -6,15 +6,15 @@ import { Product } from '../../model/product.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
+  selector: 'app-recipe-suggest',
+  templateUrl: './recipe-suggest.component.html',
   standalone: true,
   imports: [
     FormsModule
   ],
-  styleUrls: ['./test.component.css']
+  styleUrls: ['./recipe-suggest.component.css']
 })
-export class TestComponent implements OnInit {
+export class RecipeSuggestComponent implements OnInit {
   fridge: string[] = [];
   suggestedRecipes: any[] = [];
   products: Product[] = [];

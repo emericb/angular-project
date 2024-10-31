@@ -19,8 +19,7 @@ export class FridgeComponent implements OnInit {
 
   ngOnInit(): void {
     // S'abonner aux changements des produits
-    this.productService.getUpdatedProducts().subscribe(
-      (data: Product[]) => {
+    this.productService.getUpdatedProducts().subscribe((data: Product[]) => {
         this.products = data;
       },
       (error) => {

@@ -1,0 +1,11 @@
+<div class="recipe-container">
+  <h3 class="recipe-title">Suggested Recipes</h3>
+  <ul class="recipe-list">
+    @for (recipe of suggestedRecipes; track recipe.id; let i = $index) {
+      <li [id]="'recipe'+i" class="recipe-item">
+        <span class="recipe-name">{{ recipe.name }}</span>
+        <button (click)="viewRecipeDetails(recipe.id)" class="recipe-button">Details</button>
+      </li>
+    }
+  </ul>
+</div>
