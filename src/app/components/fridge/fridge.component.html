@@ -1,0 +1,15 @@
+"<div class="fridge-container">
+  <h1>FreeGo</h1>
+  <div class="fridge">
+    <div class="door">
+      <div class="handle"></div>
+    </div>
+    <div class="content">
+      <ul class="ingredients">
+        <li *ngFor="let product of filteredProducts()">{{ product.name }} x{{ product.quantity }}</li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <input type="text" placeholder="Rechercher un ingrédient" [(ngModel)]="searchTerm" (input)="filteredProducts()" />
+</div>

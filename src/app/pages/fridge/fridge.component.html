@@ -1,0 +1,33 @@
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4">Add Product to Fridge</h2>
+  <form (ngSubmit)="addProduct()" class="mb-6">
+    <label for="product" class="block text-lg font-medium mb-2">Product Name:</label>
+    <input list="products" id="product" [(ngModel)]="newProduct" name="product" placeholder="Select a product" class="border border-gray-300 p-2 rounded w-full mb-4">
+    <datalist id="products">
+      @for (product of products; track product; let i = $index) {
+        <option [id]="'data'+i" [value]="product.name"></option>
+      }
+    </datalist>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Product</button>
+  </form>
+
+  <h3 class="text-xl font-semibold mb-2">Products in Fridge</h3>
+  <ul class="list-disc pl-5 mb-6">
+    @for (product of fridge; track product; let i = $index) {
+      <li [id]="'product'+i" class="mb-1">{{ product }}</li>
+      <button (click)="deleteProduct(i)" class="ml-2 bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+    }
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">Suggested Recipes</h3>
+  <ul class="list-disc pl-5">
+    @for (recipe of suggestedRecipes; track recipe.id; let i = $index) {
+      <li [id]="'recipe'+i" class="mb-1">
+        {{ recipe.name }}
+        <button (click)="viewRecipeDetails(recipe.id)" class="ml-2 bg-green-500 text-white px-2 py-1 rounded">Details</button>
+      </li>
+    }
+  </ul>
+</div>
+

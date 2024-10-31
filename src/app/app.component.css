@@ -1,0 +1,26 @@
+main{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10% 1fr;
+  height: 100vh;
+}
+
+app-navbar{
+  display:flex;
+  grid-column: span 2;
+  justify-content: center;
+  align-items: center;
+}
+
+app-fridge{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.content{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
